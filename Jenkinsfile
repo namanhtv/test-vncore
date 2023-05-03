@@ -1,6 +1,6 @@
 pipeline {
 
-  agent { node {label 'docker-pipeline'}}
+  agent { node {label 'master'}}
 
   environment {
     DOCKER_IMAGE = "anhtvndevops/vncorelnp"
