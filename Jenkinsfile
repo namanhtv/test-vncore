@@ -29,6 +29,7 @@ pipeline {
       }
       steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
+            sh "whoami"
             sh "mkdir -p ~/.ssh"
             sh "echo $SSH_KEY |  tr -d '\r' > ~/.ssh/id_rsa"
             sh "chmod 600 ~/.ssh/id_rsa"
