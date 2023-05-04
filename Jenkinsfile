@@ -31,7 +31,7 @@ pipeline {
         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
             sh "whoami"
             sh "mkdir -p ~/.ssh"
-            sh "ls -la"
+            sh "ls -la ~/"
             sh "echo $SSH_KEY > ~/.ssh/id_rsa"
             sh "chmod 600 ~/.ssh/id_rsa"
             sh "chmod 700 ~/.ssh"
