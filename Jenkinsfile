@@ -28,7 +28,7 @@ pipeline {
         DOCKER_TAG="${GIT_BRANCH.tokenize('/').pop()}-${GIT_COMMIT.substring(0,7)}"
       }
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', sshVariable: 'SSH_KEY')]) {
+        withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
             sh "ssh -i $SSH_KEY jenkens@134.209.223.229 'docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}'"
         }
       }
