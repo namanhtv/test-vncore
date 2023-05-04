@@ -29,15 +29,13 @@ pipeline {
       }
       steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
-            sh "eval `ssh-agent -s`"
-            sh "mkdir -p ~/.ssh"
-            sh "echo $SSH_KEY > ~/abc.txt"
-            sh "cat ~/abc.txt"
-            sh "echo $SSH_KEY  | tr -d '\r' | ssh-add -"
+            sh "mkdir ~/.ssh"
+            sh "echo $SSH_KEY > ~/.ssh/id_rsa"
+            sh "chmod 600 ~/.ssh/id_rsa"
             sh "chmod 700 ~/.ssh"
             sh "ssh-keyscan -H 134.209.223.229 >> ~/.ssh/known_hosts"
             sh "chmod 600 ~/.ssh/known_hosts"
-            sh "ssh jenkins@134.209.223.229 'docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}'"
+            sh "ssh -i ~/.ssh/id_rsa  jenkins@134.209.223.229 'docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}'"
         }
       }
     }
