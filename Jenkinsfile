@@ -39,7 +39,7 @@ pipeline {
             // sh "chmod 700 ~/.ssh"
             // sh "ssh-keyscan -H 134.209.223.229 >> ~/.ssh/known_hosts"
             // sh "chmod 600 ~/.ssh/known_hosts"
-            sshCommand remote: remote,command: "docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}"
+            sshCommand remote: remote,command: "docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}", sudo: true
           }
         }
       }
