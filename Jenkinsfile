@@ -29,7 +29,7 @@ pipeline {
       }
       steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
-            sh "mkdir ~/.ssh"
+            sh "mkdir -p ~/.ssh"
             sh "echo $SSH_KEY > ~/.ssh/id_rsa"
             sh "chmod 600 ~/.ssh/id_rsa"
             sh "chmod 700 ~/.ssh"
