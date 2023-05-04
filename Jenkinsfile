@@ -29,7 +29,7 @@ pipeline {
       }
       steps {
         script{
-          withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY', passphraseVariable: 'pass', usernameVariable: 'userName')]) {
+          withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY', passphraseVariable: 'Namanh27Hg', usernameVariable: 'userName')]) {
             def remote = [name: 'jenkins', host: '134.209.223.229', user:userName, identityFile: SSH_KEY, allowAnyHosts: true]
             // sh "whoami"
             // sh "mkdir -p ~/.ssh"
