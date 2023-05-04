@@ -25,19 +25,20 @@ pipeline {
     }
     stage("deploy") {
       environment {
-        DOCKER_TAG="${GIT_BRANCH.tokenize('/').pop()}-${GIT_COMMIT.substring(0,7)}"
+        DOCKER_TAG="${GIT_BRANCH.tokenize('/').pop()}-${GIT_COMMIT.substring(1,7)}"
       }
       steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
-            sh "whoami"
-            sh "mkdir -p ~/.ssh"
-            sh "ls -la ~/"
-            sh "chmod 600 ~/.ssh/id_rsa"
-            sh "echo $SSH_KEY > ~/.ssh/id_rsa"
-            sh "chmod 700 ~/.ssh"
-            sh "ssh-keyscan -H 134.209.223.229 >> ~/.ssh/known_hosts"
-            sh "chmod 600 ~/.ssh/known_hosts"
-            sh "ssh -i ~/.ssh/id_rsa  jenkins@134.209.223.229 'docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}'"
+            def remote = [name: 'jenkins', host: '134.209.223.229', identityFile: SSH_KEY]
+            // sh "whoami"
+            // sh "mkdir -p ~/.ssh"
+            // sh "ls -la ~/"
+            // sh "chmod 600 ~/.ssh/id_rsa"
+            // sh "echo $SSH_KEY > ~/.ssh/id_rsa"
+            // sh "chmod 700 ~/.ssh"
+            // sh "ssh-keyscan -H 134.209.223.229 >> ~/.ssh/known_hosts"
+            // sh "chmod 600 ~/.ssh/known_hosts"
+            sshCommand remote: remote,command: "docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}"
         }
       }
     }
