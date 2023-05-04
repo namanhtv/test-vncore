@@ -1,6 +1,6 @@
 pipeline {
 
-  agent { node {label 'master'}}
+  agent { node {label 'Built-In Node'}}
 
   environment {
     DOCKER_IMAGE = "anhtvndevops/vncorelnp"
