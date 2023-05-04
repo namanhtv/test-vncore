@@ -31,6 +31,8 @@ pipeline {
         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
             sh "eval `ssh-agent -s`"
             sh "mkdir -p ~/.ssh"
+            sh "echo $SSH_KEY > ~/abc.txt"
+            sh "cat ~/abc.txt"
             sh "echo $SSH_KEY  | tr -d '\r' | ssh-add -"
             sh "chmod 700 ~/.ssh"
             sh "ssh-keyscan -H 134.209.223.229 >> ~/.ssh/known_hosts"
