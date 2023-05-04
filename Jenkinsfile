@@ -26,7 +26,7 @@ pipeline {
     stage("deloy") {
       steps {
         withCredentials([sshKey(credentialsId: 'ssh-key', sshVariable: 'SSH_KEY')]) {
-            sh "ssh -i $SSH_KEY jenkens@134.209.223.229 'docker run -d -p 9000:9000 '${DOCKER_IMAGE}:${DOCKER_TAG}'"
+            sh "ssh -i $SSH_KEY jenkens@134.209.223.229 'docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}'"
       }
     }
   }
