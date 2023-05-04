@@ -29,7 +29,8 @@ pipeline {
       }
       steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
-            sh "ssh -i $SSH_KEY jenkens@134.209.223.229 'docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}'"
+            sh "echo $SSH_KEY"
+            sh "ssh -i $SSH_KEY jenkins@134.209.223.229 'docker run -d -p 9000:9000 ${DOCKER_IMAGE}:${DOCKER_TAG}'"
         }
       }
     }
