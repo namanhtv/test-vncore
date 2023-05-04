@@ -31,8 +31,8 @@ pipeline {
         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
             sh "whoami"
             sh "mkdir -p ~/.ssh"
-            sh "echo $SSH_KEY |  tr -d '\r' > ~/.ssh/id_rsa"
-            sh "chmod 600 ~/.ssh/id_rsa"
+            sh "echo $SSH_KEY > ~/.ssh/id_rsa"
+            sh "chmod 400 ~/.ssh/id_rsa"
             sh "chmod 700 ~/.ssh"
             sh "ssh-keyscan -H 134.209.223.229 >> ~/.ssh/known_hosts"
             sh "chmod 600 ~/.ssh/known_hosts"
