@@ -29,7 +29,7 @@ pipeline {
       }
       steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')]) {
-            sh "eval $(ssh-agent)"
+            sh "eval `ssh-agent -s`"
             sh "mkdir -p ~/.ssh"
             sh "echo $SSH_KEY  | tr -d '\r' | ssh-add -"
             sh "chmod 700 ~/.ssh"
